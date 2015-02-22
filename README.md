@@ -2,7 +2,7 @@
 Simple queue and submit system for javascript web workers.
 
 This package allows for web workers to be spun off with a series of simple commands. In order for web workers to work, you must define a web worker file, as seen at the bottom of this page. Following this you initialize a web worker object with:
-    work1 = amd_ww.startWorkers({<i>start_obj</i>});
+   ``` work1 = amd_ww.startWorkers({<i>start_obj</i>});```
 This object must have the property 'filename' which is the name of your web workers file and it will return the **submit object** you use to submit jobs. All properties can be seen in the table below:
 
 |Property|Description|
