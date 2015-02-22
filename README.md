@@ -12,14 +12,14 @@ This package allows for web workers to be spun off with a series of simple comma
 |Property|Description|
 |---------------|----------------|
 |submitJob|[*function*] This takes two arguments, an object [*required*] to be passed to the web worker and a callback function [*optional*] that will be passed the results of the job on an object with many properties, 'data' will contain the results.|
-|onComplete|[*function*] This is takes one argument, a function [*required*], called asynchronously once all submitted jobs have been completed. It can be called as many times as needed throughout the course of the code, however minimizing it will maximize the speed at which results are returned. |
+|onComplete|[*function*] This is takes one argument, a function [*required*], called asynchronously once all submitted jobs have been completed. It can be called as many times as needed throughout the course of the code, however minimizing it will maximize the speed at which results are returned.|
 |clearWorkers|[*function*] This takes a callback function [*optional*], and clears the workers and the **submit object** itself. This should only be done in the callback from an onComplete function.|
 
 To initialize the work flow you create a **submit object** with:
    ``` work1 = amd_ww.startWorkers({<i>start_obj</i>});```
 In this case the **submit object** returned is ```work1``` which you will use to submit jobs. The start object has many parameters, all can be seen in the table below:
 
-####start_obj options####
+####startWorkers: start_obj options####
 |Property|Description|
 |---------------|----------------|
 |filename|[*string, required*] This is the file responsible for processing the worker task. Described below and an example is at the bottom of the page.|
@@ -27,7 +27,7 @@ In this case the **submit object** returned is ```work1``` which you will use to
 |callback|[*function, optional*] This function is called following the creation of the **submit object**, not neccesary as this is not done asynchronously.|
 |onError|[*function, optional*] This will be called if a worker creates an error. Default is to call console.error and report an error message.|
 
-In addition to the object used, a web worker file, is necessary. The web worker file must have at least one function: ```self.onmessage(event)```. This function will be pased the data from ```**submit object**.submitJob``` on the data property, in this case ```event.data```. Following this ```self.postmessage(<i>results</i>)``` must be called to pass your results to the callback function also passed in with the submitJob function.
+In addition to the object used, a web worker file, is necessary. The web worker file must have at least one function: ```self.onmessage(event)```. This function will be pased the data from ```<submit object>.submitJob``` on the data property, in this case ```event.data```. Following this ```self.postmessage(<i>results</i>)``` must be called to pass your results to the callback function also passed in with the submitJob function. A simple web worker example is at the bottom of this page.
 
 
 ##Example of web workers in action.##
