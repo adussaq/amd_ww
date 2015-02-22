@@ -22,12 +22,15 @@ In this case the **submit object** returned is ```work1``` which you will use to
 ####start_obj options####
 |Property|Description|
 |---------------|----------------|
-|filename|[*string, required*] This is the file responsible for processing the worker task.|
+|filename|[*string, required*] This is the file responsible for processing the worker task. Described below and an example is at the bottom of the page.|
 |num_workers|[*number, optional*] This is the number of workers to create, default is 4, 2-4 is recommended.|
 |callback|[*function, optional*] This function is called following the creation of the **submit object**, not neccesary as this is not done asynchronously.|
 |onError|[*function, optional*] This will be called if a worker creates an error. Default is to call console.error and report an error message.|
 
-##Below is the javascript that allows you to create a web worker and submit a job.
+In addition to the object used, a web worker file, is necessary. The web worker file must have at least one function: ```self.onmessage(event)```. This function will be pased the data from ```**submit object**.submitJob``` on the data property, in this case ```event.data```. Following this ```self.postmessage(<i>results</i>)``` must be called to pass your results to the callback function also passed in with the submitJob function.
+
+
+##Example of web workers in action.##
     work1 = amd_ww.startWorkers({filename:'worker1.js'});
     //Submit all of your jobs
     work1.submitJob({a:7,b:2},function(x){
