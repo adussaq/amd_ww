@@ -6,26 +6,26 @@ This package allows for web workers to be spun off with a series of simple comma
 ###**Create Object** properties###
 |Property|Description|
 |---------------|----------------|
-|startWorkers|[*function*] This function takes one argument, start_obj (more information below) and returns a **submit object**|
+|startWorkers|[*function*] This function takes one argument, start_obj  [*required*] (more information below) and returns a **submit object**|
 
 ###**Submit Object** Methods###
 |Property|Description|
 |---------------|----------------|
 |submitJob|[*function*] This takes two arguments, an object [*required*] to be passed to the web worker and a callback function [*optional*] that will be passed the results of the job on an object with many properties, 'data' will contain the results.|
-|onComplete|[*function*] This is takes one argument, a function, called once all submitted jobs have been completed. It can be called as many times as needed throughout the course of the code, however minimizing it will maximize the speed at which results are returned. |
+|onComplete|[*function*] This is takes one argument, a function [*required*], called asynchronously once all submitted jobs have been completed. It can be called as many times as needed throughout the course of the code, however minimizing it will maximize the speed at which results are returned. |
 |clearWorkers|[*function*] This takes a callback function [*optional*], and clears the workers and the **submit object** itself. This should only be done in the callback from an onComplete function.|
 
-Following this you initialize a web worker object with:
+To initialize the work flow you create a **submit object** with:
    ``` work1 = amd_ww.startWorkers({<i>start_obj</i>});```
-This object must have the property 'filename' which is the name of your web workers file and it will return the **submit object** you use to submit jobs. All properties can be seen in the table below:
+In this case the **submit object** returned is ```work1``` which you will use to submit jobs. The start object has many parameters, all can be seen in the table below:
 
 ####start_obj options####
 |Property|Description|
 |---------------|----------------|
 |filename|[*string, required*] This is the file responsible for processing the worker task.|
-|num_workers|[*number*] This is the number of workers to create, default is 4, 2-4 is recommended.|
-|callback|[*function*] This function is called following the creation of the **submit object**, not neccesary as this is not done asynchronously.|
-|onError|[*function*] This will be called if a worker creates an error. Default is to call console.error and report an error message.|
+|num_workers|[*number, optional*] This is the number of workers to create, default is 4, 2-4 is recommended.|
+|callback|[*function, optional*] This function is called following the creation of the **submit object**, not neccesary as this is not done asynchronously.|
+|onError|[*function, optional*] This will be called if a worker creates an error. Default is to call console.error and report an error message.|
 
 ##Below is the javascript that allows you to create a web worker and submit a job.
     work1 = amd_ww.startWorkers({filename:'worker1.js'});
