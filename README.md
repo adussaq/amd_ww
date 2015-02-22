@@ -6,7 +6,7 @@ This package allows for web workers to be spun off with a series of simple comma
 ###**Create Object** properties###
 |Property|Description|
 |---------------|----------------|
-|startWorkers|[*function*] This function takes one argument, start_obj  [*required*] (more information below) and returns a **submit object**|
+|startWorkers|[*function*] This function takes one argument, start_obj [*required, more information below*] and returns a **submit object**|
 
 ###**Submit Object** Methods###
 |Property|Description|
