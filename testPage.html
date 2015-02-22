@@ -1,0 +1,34 @@
+<html>
+	<head>
+		<script src="workersPackage.js"></script>
+	</head>
+	<body>
+		<h2>Open the console to test web workers!</h2>
+		<b>Try the following in the console:</b><br />
+		<pre><code>
+	//Initializes all the the workers
+	work1 = amd_ww.startWorkers({filename:'worker1.js'});
+	work2 = amd_ww.startWorkers({filename:'worker2.js'});
+
+	//Submit all of your jobs
+	work1.submitJob({a:7,b:2},function(x){
+		//x.data contains the result of the job
+		console.log('7+2=', x.data);
+	});
+	work2.submitJob({a:7,b:2},function(x){
+		//x.data contains the result of the job
+		console.log('7*2=', x.data);
+	});
+
+	//
+	work1.onComplete(function (x) {
+		console.log('Worker one all finished!');
+		//If this is part of an entire ecosystem, it is a good idea to clear these with work1.clearWorkers(<i>[callback]</i>);
+		});
+	work2.onComplete(function (x) {
+		console.log('Worker two all finished');
+		//If this is part of an entire ecosystem, it is a good idea to clear these with work2.clearWorkers(<i>[callback]</i>);
+	});
+		</code></pre>
+	</body>
+</html>
