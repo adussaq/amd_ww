@@ -1,5 +1,5 @@
 # amd_ww
-Simple queue and submit system for javascript web workers. At the bottom of this readme is a simple example, downloading this package comes with one as well, and one can also be found at: TBD.
+Simple queue and submit system for javascript web workers. At the bottom of this readme is a simple example, downloading this package comes with one as well, and one can also be found at: http://alexdussaq.info/amd_ww.
 
 This package allows for web workers to be spun off with a series of simple commands. In order for web workers to work, you must define a web worker file, as seen at the bottom of this page. Two major objects are avaliable, a **create object** and a **submit object**. Their properties are the the tables below:
 
