@@ -12,7 +12,9 @@ This package allows for web workers to be spun off with a series of simple comma
 |Property|Description|
 |---------------|----------------|
 |submitJob|[*function*] This takes two arguments, an object [*required*] to be passed to the web worker and a callback function [*optional*] that will be passed the results of the job on an object with many properties, 'data' will contain the results.|
-|onComplete|[*function*] This is takes one argument, a function [*required*], called asynchronously once all submitted jobs have been completed. It can be called as many times as needed throughout the course of the code, however minimizing it will maximize the speed at which results are returned.|
+|onComplete|[*function*] This is takes one argument, a function [*required*], called asynchronously once all submitted jobs have been completed. The execution of any submitted jobs following this call will be paused until this function has been called. It can be called as many times as needed throughout the course of the code, however minimizing it will maximize the speed at which results are returned.|
+|pause|[*function*] This takes no arguments, it pauses the execution of all future 'submitJob' calls until resume is called.|
+|resume|[*function*] This takes no arguments, it resumes the execution of the web workers queue.|
 |clearWorkers|[*function*] This takes a callback function [*optional*], and clears the workers and the **submit object** itself. This should only be done in the callback from an onComplete function.|
 
 To initialize the work flow you create a **submit object** with:
