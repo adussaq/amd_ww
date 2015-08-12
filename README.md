@@ -44,7 +44,7 @@ In addition to the object used, a web worker file, is necessary. The web worker 
     work1.wait(function (x) {
         console.log('Worker one all finished!');
         //If this is part of an entire ecosystem, it is a good idea to clear these with work1.clearWorkers([callback]);
-        });
+    });
 
 ##Worker1.js
     /*global self*/
