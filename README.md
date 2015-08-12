@@ -15,7 +15,7 @@ This package allows for web workers to be spun off with a series of simple comma
 |wait|[*function*] This is takes one argument, a function [*required*], called asynchronously once all submitted jobs have been completed. The execution of any submitted jobs following this call will be paused until this function has been called. It can be called as many times as needed throughout the course of the code, however minimizing it will maximize the speed at which results are returned.|
 |pause|[*function*] This takes no arguments, it pauses the execution of all future 'submitJob' calls until resume is called.|
 |resume|[*function*] This takes no arguments, it resumes the execution of the web workers queue.|
-|clearWorkers|[*function*] This takes a callback function [*optional*], and clears the workers and the **submit object** itself. This should only be done in the callback from an onComplete function.|
+|clearWorkers|[*function*] This takes a callback function [*optional*], and clears the workers and the **submit object** itself. This should only be done in the callback from an __wait__ function.|
 
 To initialize the work flow you create a **submit object** with:
    ``` work1 = amd_ww.startWorkers({<i>start_obj</i>});```
@@ -41,7 +41,7 @@ In addition to the object used, a web worker file, is necessary. The web worker 
     });
 
     //Essentially waits for all jobs to finish, then continues with the callback
-    work1.onComplete(function (x) {
+    work1.wait(function (x) {
         console.log('Worker one all finished!');
         //If this is part of an entire ecosystem, it is a good idea to clear these with work1.clearWorkers([callback]);
         });

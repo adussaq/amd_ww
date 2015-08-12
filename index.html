@@ -22,11 +22,11 @@
 	});
 
 	//
-	work1.onComplete(function (x) {
+	work1.wait(function (x) {
 		console.log('Worker one all finished!');
 		//If this is part of an entire ecosystem, it is a good idea to clear these with work1.clearWorkers(<i>[callback]</i>);
 		});
-	work2.onComplete(function (x) {
+	work2.wait(function (x) {
 		console.log('Worker two all finished');
 		//If this is part of an entire ecosystem, it is a good idea to clear these with work2.clearWorkers(<i>[callback]</i>);
 	});
