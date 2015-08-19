@@ -13,12 +13,12 @@ work2 = amd_ww.startWorkers({filename:'worker2.js'});
 
 //Submit all of your jobs
 work1.submit({a:7,b:2}).then(function(x){
-	//x.data contains the result of the job
-	console.log('7+2=', x.data);
+	//x contains the result of the job
+	console.log('7+2=', x);
 });
 work2.submit({a:7,b:2}).then(function(x){
-	//x.data contains the result of the job
-	console.log('7*2=', x.data);
+	//x contains the result of the job
+	console.log('7*2=', x);
 });
 
 //Utilize the 'all' property of Promises to run functions when all 
