@@ -1,7 +1,7 @@
 # amd_ww v2
 Simple queue and submit system for javascript web workers. At the bottom of this readme is a simple example, downloading this package comes with one as well, and one can also be found at: http://alexdussaq.info/amd_ww.
 
-The readme for v1 can be viewed: ...
+The readme for v1 can be viewed at: https://github.com/adussaq/amd_ww/blob/f99e9f38eecfbe762b42c7bdfeb9e455a480b230/README.md
 
 This package allows for web workers to be spun off with a series of simple commands. In order for web workers to work, you must define a web worker file, as seen at the bottom of this page. Two major objects are avaliable, a **create object** and a **submit object**. Their properties are the the tables below:
 
@@ -45,20 +45,21 @@ In this case the **submit object** returned is ```work1``` which you will use to
 In addition to the object used, a web worker file, is necessary. The web worker file must have at least one function: ```self.onmessage(event)```. This function will be pased the data from ```<submit object>.submit``` on the data property, in this case ```event.data```. Following this ```self.postmessage(_results_)``` must be called to pass your results to the then function that is returned as the promise from the submit function. A simple web worker example follows.
 
 
-##Example of web workers in action.##
+##Simple of web workers in action.##
     work1 = amd_ww.startWorkers({filename:'worker1.js'});
     //Submit all of your jobs
-    work1.submit({a:7,b:2}.then(function (x) {
+    work1.submit({a:7,b:2}).then(function (x) {
         //x contains the result of the job
         console.log('7 + 2 = ', x);
     });
-    work1.submit({a:3,b:4}.then(function (x) {
+    work1.submit({a:3,b:4}).then(function (x) {
         //x contains the result of the job
         console.log('3 + 4 = ', x);
     });
 
     //Essentially waits for all jobs to finish, then continues with the then
     work1.all().then(function (x) {
+        //x is an array containing all results in the order submitted.
         console.log('Worker one all finished!');
     });
 
@@ -88,5 +89,66 @@ In addition to the object used, a web worker file, is necessary. The web worker 
 
     }());
 
+## A slightly more complicated example of web workers in action ##
+    work1 = amd_ww.startWorkers({filename:'worker1.js'});
+    work3 = amd_ww.startWorkers({filename:'worker3_failure.js'});
 
-        
+    //Set up jobs
+    data = [{a:7,b:2}, 
+            {a:9,b:1}, 
+            {a:11,b:0},
+            {a:13,b:-1},
+            {a:15,b:-2}];
+
+
+    //Submit all of your jobs
+    for (i = 0; i < data.length; i += 1) {
+        //While adding a '.then' to this is the most efficeint way to analyze the data
+            // for the purposes of this example we will wait till all jobs are done to
+            // look at the results.
+        work1.submit(data[i]);
+    }
+
+    //Once all jobs are finished display results.
+    work1.all().then(function (x) {
+        //x contains the results
+        for (i = 0; i < data.length; i += 1) {
+            console.log(data[i].a + " + " data[i].b + " = " + x[i]);
+        }
+    });
+
+    //Clear the workers to free up memory
+    work1.clear();
+
+    //This by design returns an error
+    work3.submit({a:4, b:-2}).catch(function (x) {
+        console.error('Yep, I found an error': x);
+    });
+
+##worker3_failure.js
+
+    /*global self*/
+
+    (function () {
+        'use strict';
+
+        //This is the worker being called.
+        self.onmessage = function (event) {
+            //variable declarations
+            var data, result;
+
+            //variable definitions - this is where your 'cleaned' object is held
+            data = event.data;
+
+            //Do your math or other functions
+            result = data.a - data.b;
+            if (result || !result) {
+                throw 'Result: ' + data.a + '-' + data.b + ' = ' + result +
+                    ". This is an intentionally created and uncaught error!";
+            }
+
+            //return result to the calling function
+            self.postMessage(result);
+        };
+
+    }());

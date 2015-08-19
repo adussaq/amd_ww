@@ -25,12 +25,16 @@
 		//submitted jobs are done
 	work1.all().then(function (x) {
 		console.log('Worker one all finished!');
-		//If this is part of an entire ecosystem, it is a good idea to clear these with work1.clearWorkers(<i>[callback]</i>);
-		});
+	});
 	work2.all().then(function (x) {
 		console.log('Worker two all finished');
-		//If this is part of an entire ecosystem, it is a good idea to clear these with work2.clearWorkers(<i>[callback]</i>);
 	});
+
+
+	//Clear the workers to free up any memory
+	work1.clear();
+	work2.clear();
+
 		</code></pre>
 	</body>
 </html>
