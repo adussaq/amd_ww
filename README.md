@@ -100,6 +100,11 @@ In addition to the object used, a web worker file, is necessary. The web worker 
             {a:13,b:-1},
             {a:15,b:-2}];
 
+    data2 = [{a:14,b:4}, 
+            {a:18,b:1}, 
+            {a:22,b:0},
+            {a:26,b:1},
+            {a:30,b:4}];
 
     //Submit all of your jobs
     for (i = 0; i < data.length; i += 1) {
@@ -116,6 +121,25 @@ In addition to the object used, a web worker file, is necessary. The web worker 
             console.log(data[i].a + " + " data[i].b + " = " + x[i]);
         }
     });
+
+    //Pause worker number one
+    work1.pause();
+
+    //Submit jobs while paused, none of these are executed at this point.
+    for (i = 0; i < data2.length; i += 1) {
+        work1.submit(data2[i]).then(function (x) { 
+            //Note while faster, order will not be maintained.
+            console.log(data[i].a + " + " data[i].b + " = " + x);
+        });
+    }
+
+    //All done? Not yet, nothing has been started till resume is called
+    work1.all().then(function () {
+        console.log('All Done with 1!');
+    });
+
+    //Start running, once completed above functions will be called.
+    work1.resume()
 
     //Clear the workers to free up memory
     work1.clear();
