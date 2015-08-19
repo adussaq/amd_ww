@@ -6,34 +6,34 @@
 		<h2>Open the console to test web workers!</h2>
 		<b>Find full documentation and code at: <a href="https://github.com/adussaq/amd_ww">https://github.com/adussaq/amd_ww</a></b><br />
 		<b>Try the following in the console:</b><br />
-		<pre><code>
-	//Initializes all the the workers
-	work1 = amd_ww.startWorkers({filename:'worker1.js'});
-	work2 = amd_ww.startWorkers({filename:'worker2.js'});
+		<pre><code style="margin-left:10px; margin-top:-5px">
+//Initializes all the the workers
+work1 = amd_ww.startWorkers({filename:'worker1.js'});
+work2 = amd_ww.startWorkers({filename:'worker2.js'});
 
-	//Submit all of your jobs
-	work1.submit({a:7,b:2}).then(function(x){
-		//x.data contains the result of the job
-		console.log('7+2=', x.data);
-	});
-	work2.submit({a:7,b:2}).then(function(x){
-		//x.data contains the result of the job
-		console.log('7*2=', x.data);
-	});
+//Submit all of your jobs
+work1.submit({a:7,b:2}).then(function(x){
+	//x.data contains the result of the job
+	console.log('7+2=', x.data);
+});
+work2.submit({a:7,b:2}).then(function(x){
+	//x.data contains the result of the job
+	console.log('7*2=', x.data);
+});
 
-	//Utilize the 'all' property of Promises to run functions when all 
-		//submitted jobs are done
-	work1.all().then(function (x) {
-		console.log('Worker one all finished!');
-	});
-	work2.all().then(function (x) {
-		console.log('Worker two all finished');
-	});
+//Utilize the 'all' property of Promises to run functions when all 
+	//submitted jobs are done
+work1.all().then(function (x) {
+	console.log('Worker one all finished!');
+});
+work2.all().then(function (x) {
+	console.log('Worker two all finished');
+});
 
 
-	//Clear the workers to free up any memory
-	work1.clear();
-	work2.clear();
+//Clear the workers to free up any memory
+work1.clear();
+work2.clear();
 
 		</code></pre>
 	</body>

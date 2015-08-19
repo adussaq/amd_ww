@@ -42,7 +42,7 @@ In this case the **submit object** returned is ```work1``` which you will use to
 |filename|[*string, required*] This is the file responsible for processing the worker task. Described below and an example is at the bottom of the page.|
 |num_workers|[*number, optional*] This is the number of workers to create, default is 4, 2-4 is recommended.|
 
-In addition to the object used, a web worker file, is necessary. The web worker file must have at least one function: ```self.onmessage(event)```. This function will be pased the data from ```<submit object>.submit``` on the data property, in this case ```event.data```. Following this ```self.postmessage(_results_)``` must be called to pass your results to the then function that is returned as the promise from the submit function. A simple web worker example follows.
+In addition to the object used, a web worker file, is necessary. The web worker file must have at least one function: ```self.onmessage(event)```. This function will be pased the data from ```<submit object>.submit``` on the data property, in this case ```event.data```. Following this ```self.postmessage(_results_)``` must be called to pass your results to the then function that is returned as the promise from the submit function. Two web worker examples follow. These can both be executed in the console at: http://alexdussaq.info/amd_ww.
 
 
 ##Simple of web workers in action.##
@@ -147,8 +147,12 @@ In addition to the object used, a web worker file, is necessary. The web worker 
     work1.clear();
 
     //This by design returns an error
-    work3.submit({a:4, b:-2}).catch(function (x) {
-        console.error('Yep, I found an error', x);
+    work3.submit({a:4, b:-2}).then(function(x) {
+            //If it worked
+            console.log('4 - -2 = ' + x);
+        }, function (x) {
+            //If it failed
+            console.error('Yep, I found an error, but 4 - -2 = ', x);
     });
 
     work3.clear();
