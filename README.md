@@ -149,6 +149,8 @@ In addition to the object used, a web worker file, is necessary. The web worker 
         console.error('Yep, I found an error': x);
     });
 
+    work3.clear();
+
 ##worker3_failure.js
 
     /*global self*/
