@@ -118,7 +118,7 @@ In addition to the object used, a web worker file, is necessary. The web worker 
     work1.all().then(function (x) {
         //x contains the results
         for (i = 0; i < data.length; i += 1) {
-            console.log(data[i].a + " + " data[i].b + " = " + x[i]);
+            console.log(data[i].a + " + " + data[i].b + " = " + x[i]);
         }
     });
 
@@ -127,10 +127,12 @@ In addition to the object used, a web worker file, is necessary. The web worker 
 
     //Submit jobs while paused, none of these are executed at this point.
     for (i = 0; i < data2.length; i += 1) {
+        (function (i) {
         work1.submit(data2[i]).then(function (x) { 
             //Note while faster, order will not be maintained.
-            console.log(data[i].a + " + " data[i].b + " = " + x);
+            console.log(data2[i].a + " + " + data2[i].b + " = " + x);
         });
+        }(i));
     }
 
     //All done? Not yet, nothing has been started till resume is called
@@ -146,7 +148,7 @@ In addition to the object used, a web worker file, is necessary. The web worker 
 
     //This by design returns an error
     work3.submit({a:4, b:-2}).catch(function (x) {
-        console.error('Yep, I found an error': x);
+        console.error('Yep, I found an error', x);
     });
 
     work3.clear();
