@@ -16,7 +16,7 @@ This object is equivilent to a **Promise** object with a few additional methods 
 |Property|Description|
 |---------------|----------------|
 |submit|[*function*] Takes one argument, an object [*required*] to be passed to the web worker (will be cleaned of any functions) and returns a thenable promise.|
-|all|[*function*] Takes one argument, an array [*optional*], this will be called asynchronously once all jobs in the array have been completed. If there are any errors this will not be called. If an array is not provided then it will utilize all jobs previously submitted using this object. It returns a thenable promise.|
+|all|[*function*] Takes one argument, an array [*optional*], this will be called asynchronously once all jobs in the array have been completed. If an array is not provided then it will utilize all jobs previously submitted using this object, all failed jobs return undefined in this case (If utilizing with an array, then any uncaught errors will not allow this function to work at all). It returns a thenable promise.|
 |race|[*function*] Takes one argument, an array [*optional*], this will be called asynchronously once any of the jobs in the array have been completed successfully. If an array is not provided then it will utilize all jobs previously submitted using this object. It returns a thenable promise. |
 |pause|[*function*] Takes no arguments, it pauses the execution of all future 'submit' calls until resume is called. This happens synchronously, as in it does not require a then, nor a callback. Despite the lack of reuqirement, this does return a thenable promise.|
 |resume|[*function*] Takes no arguments, it resumes the execution of the job queue including all jobs submitted since the 'pause' function was called. This happens synchronously, as in it does not require a then, nor a callback. Despite the lack of reuqirement, this does return a thenable promise.|
@@ -152,7 +152,7 @@ In addition to the object used, a web worker file, is necessary. The web worker 
             console.log('4 - -2 = ' + x);
         }, function (x) {
             //If it failed
-            console.error('Yep, I found an error, but 4 - -2 = ', x);
+            console.error('Yep, I found an error: ', x);
     });
 
     work3.clear();

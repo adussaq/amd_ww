@@ -300,7 +300,12 @@ var amd_ww = (function () {
             jobP = promiseFunction(jobsArray, message);
 
             //Add the job to the list of promises
-            promiseArray.push(jobP);
+            promiseArray.push(jobP.catch(function (err) {
+                console.error(err);
+                return undefined; //This insures that promiseArray.all 
+                        // works, and just returns undefined for failed,
+                        // but completed work.
+            }));
 
             //Return the Promise to the user
             return jobP;
@@ -347,8 +352,9 @@ var amd_ww = (function () {
                     worker.onerror = function (e) {
                         reject('ERROR: Line ' + e.lineno + ' in ' + e.filename + ': ' + e.message);
                     };
+
                     //Post worker job, cleaning object first as needed
-                    if (message && typeof message === 'object') {
+                    if (typeof message === 'object') {
                         worker.postMessage(JSON.parse(JSON.stringify(message)));
                     } else {
                         worker.postMessage(message);
