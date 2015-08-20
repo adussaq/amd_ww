@@ -127,12 +127,12 @@ In addition to the object used, a web worker file, is necessary. The web worker 
 
     //Submit jobs while paused, none of these are executed at this point.
     for (i = 0; i < data2.length; i += 1) {
-        (function (i) {
-        work1.submit(data2[i]).then(function (x) { 
-            //Note while faster, order will not be maintained.
-            console.log(data2[i].a + " + " + data2[i].b + " = " + x);
-        });
-        }(i));
+        (function (obj) {
+            work1.submit(obj).then(function (x) { 
+                //Note while faster, order will not be maintained.
+                console.log(obj.a + " + " + obj.b + " = " + x);
+            });
+        }(data2[i]));
     }
 
     //All done? Not yet, nothing has been started till resume is called
