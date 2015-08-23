@@ -11,7 +11,7 @@ This package allows for web workers to be spun off with a series of simple comma
 |startWorkers|[*function*] Takes one argument, start_obj [*required, more information below*] and returns a **submit object**|
 
 ###**Submit Object** Methods###
-This object is equivilent to a **Promise** object with a few additional methods and slighly changed all/race functions. Please see: http://www.html5rocks.com/en/tutorials/es6/promises/#toc-async for a more full description of promises. These are the methods that have been changed/added on and are essential for running the program.
+This object is equivilent to a **Promise** object with a few additional methods and slighly changed all/race functions. Please see: <a href="http://www.html5rocks.com/en/tutorials/es6/promises/">HTML5 Rocks: Promises</a> for a more full description of promises. These are the methods that have been changed/added on and are essential for running the program.
 
 |Property|Description|
 |---------------|----------------|
@@ -25,7 +25,7 @@ This object is equivilent to a **Promise** object with a few additional methods 
 
 
 ###**Promise Object** Methods###
-Please see: http://www.html5rocks.com/en/tutorials/es6/promises/#toc-async for a more full description of promises. Detailed below are the methods that are utilized in the examples.
+Please see: <a href="http://www.html5rocks.com/en/tutorials/es6/promises/">HTML5 Rocks: Promises</a> for a more full description of promises. Detailed below are the methods that are utilized in the examples.
 
 |Property|Description|
 |---------------|----------------|
