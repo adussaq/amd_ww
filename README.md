@@ -6,11 +6,13 @@ The readme for v1 can be viewed at: https://github.com/adussaq/amd_ww/blob/f99e9
 This package allows for web workers to be spun off with a series of simple commands. In order for web workers to work, you must define a web worker file, as seen at the bottom of this page. Two major objects are avaliable, a **create object** and a **submit object**. Their properties are the the tables below:
 
 ###**Create Object** properties###
+
 |Property|Description|
 |---------------|----------------|
 |startWorkers|[*function*] Takes one argument, start_obj [*required, more information below*] and returns a **submit object**|
 
 ###**Submit Object** Methods###
+
 This object is equivilent to a **Promise** object with a few additional methods and slighly changed all/race functions. Please see: <a href="http://www.html5rocks.com/en/tutorials/es6/promises/">HTML5 Rocks: Promises</a> for a more full description of promises. These are the methods that have been changed/added on and are essential for running the program.
 
 |Property|Description|
