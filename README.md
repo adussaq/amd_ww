@@ -5,12 +5,14 @@ The readme for v1 can be viewed at: https://github.com/adussaq/amd_ww/blob/f99e9
 
 This package allows for web workers to be spun off with a series of simple commands. In order for web workers to work, you must define a web worker file, as seen at the bottom of this page. Two major objects are avaliable, a **create object** and a **submit object**. Their properties are the the tables below:
 
-###**Create Object** properties###
+### **Create Object** properties###
+
 |Property|Description|
 |---------------|----------------|
 |startWorkers|[*function*] Takes one argument, start_obj [*required, more information below*] and returns a **submit object**|
 
-###**Submit Object** Methods###
+### **Submit Object** Methods###
+
 This object is equivilent to a **Promise** object with a few additional methods and slighly changed all/race functions. Please see: <a href="http://www.html5rocks.com/en/tutorials/es6/promises/">HTML5 Rocks: Promises</a> for a more full description of promises. These are the methods that have been changed/added on and are essential for running the program.
 
 |Property|Description|
@@ -24,7 +26,7 @@ This object is equivilent to a **Promise** object with a few additional methods 
 
 
 
-###**Promise Object** Methods###
+### **Promise Object** Methods###
 Please see: <a href="http://www.html5rocks.com/en/tutorials/es6/promises/">HTML5 Rocks: Promises</a> for a more full description of promises. Detailed below are the methods that are utilized in the examples.
 
 |Property|Description|
@@ -36,7 +38,8 @@ To initialize the work flow you create a **submit object** with:
    ``` work1 = amd_ww.startWorkers({_start_obj_});```
 In this case the **submit object** returned is ```work1``` which you will use to submit jobs. The start object has two parameters, described below:
 
-####startWorkers: start_obj options####
+#### startWorkers: start_obj options####
+
 |Property|Description|
 |---------------|----------------|
 |filename|[*string, required*] This is the file responsible for processing the worker task. Described below and an example is at the bottom of the page.|
@@ -45,7 +48,7 @@ In this case the **submit object** returned is ```work1``` which you will use to
 In addition to the object used, a web worker file, is necessary. The web worker file must have at least one function: ```self.onmessage(event)```. This function will be pased the data from ```<submit object>.submit``` on the data property, in this case ```event.data```. Following this ```self.postmessage(_results_)``` must be called to pass your results to the then function that is returned as the promise from the submit function. Two web worker examples follow. These can both be executed in the console at: http://alexdussaq.info/amd_ww.
 
 
-##Simple of web workers in action.##
+## Simple of web workers in action.##
     work1 = amd_ww.startWorkers({filename:'worker1.js'});
     //Submit all of your jobs
     work1.submit({a:7,b:2}).then(function (x) {
@@ -66,7 +69,7 @@ In addition to the object used, a web worker file, is necessary. The web worker 
     //Clear the workers to free up memory
     work1.clear();
 
-##Worker1.js
+## Worker1.js
     /*global self*/
 
     (function () {
