@@ -1,32 +1,36 @@
 <html>
 	<head>
-		<script src="amd_ww.2.0.0.min.js"></script>
+		<script src="amd_ww.3.0.0.min.js"></script>
 	</head>
 	<body>
 		<h2>Open the console to test web workers!</h2>
 		<b>Find full documentation and code at: <a href="https://github.com/adussaq/amd_ww">https://github.com/adussaq/amd_ww</a></b><br />
 		<b>Try the following in the console:</b><br />
 		<pre style="margin-left:25px; margin-top:-5px"><code>
+//Create arrays to store your jobs
+workers1 = [];
+workers2 = [];
+
 //Initializes all the the workers
-work1 = amd_ww.startWorkers({filename:'worker1.js'});
-work2 = amd_ww.startWorkers({filename:'worker2.js'});
+work1 = amd_ww.start({filename:'worker1.js'});
+work2 = amd_ww.start({filename:'worker2.js'});
 
 //Submit all of your jobs
-work1.submit({a:7,b:2}).then(function(x){
+workers1.push(work1.submit({a:7,b:2}).then(function(x){
 	//x contains the result of the job
 	console.log('7+2=', x);
-});
-work2.submit({a:7,b:2}).then(function(x){
+}));
+workers2.push(work2.submit({a:7,b:2}).then(function(x){
 	//x contains the result of the job
 	console.log('7*2=', x);
-});
+}));
 
 //Utilize the 'all' property of Promises to run functions when all 
 	//submitted jobs are done
-work1.all().then(function (x) {
+work1.all(workers1).then(function (x) {
 	console.log('Worker one all finished!');
 });
-work2.all().then(function (x) {
+work2.all(workers2).then(function (x) {
 	console.log('Worker two all finished');
 });
 
