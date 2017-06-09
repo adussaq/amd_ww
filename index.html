@@ -31,10 +31,10 @@ workers2.push(work2.submit({a:7,b:2}).then(function(x){
 
 //Utilize the 'all' property of Promises to run functions when all 
 	//submitted jobs are done
-work1.all(workers1).then(function (x) {
+Promise.all(workers1).then(function (x) {
 	console.log('Worker one all finished!');
 });
-work2.all(workers2).then(function (x) {
+Promise.all(workers2).then(function (x) {
 	console.log('Worker two all finished');
 });
 
